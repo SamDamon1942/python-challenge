@@ -84,25 +84,30 @@ print("Total Months: " + str(month_count))
 print()
 print("Total: $" + str(total_Profit_Loss))
 print()
-print("Averge Change: " + "($" + str(average_change)+")")
+print("Averge Change: " + "$" + str(average_change))
 print()
 print("Greatest Increase in Profits: " + max_change_date + " ($" + str(max_change) + ")")
 print()
 print("Greatest Decrease in Profits: " + min_change_date + " ($" + str(min_change) + ")")
 
-# print the results to a text file      
+
+#print the results to a text file      
 # specify the file to write to
-output_path = os.path.join("analysis","results.csv")
+output_path = os.path.join("analysis","results.txt")
 
-# open the file using "write" mode. Specify the variable hold the contents
-with open(output_path, 'w') as csvfile:
-
-    # initialize csv.write
-    csvwriter = csv.writer(csvfile, delimiter=',')
-
-    # write the first row (column headers)
-    csvwriter.writerow(["Total Months", "Total Profit/Loss", "Average Change", "Date of Greatest Increase In Profits", "Greatest Increase In Profits", "Date of Greatest Decrease In Profits", "Greatest Decrease In Profits"])
-    
-    # write the second row (the results)
-    csvwriter.writerow([month_count, total_Profit_Loss,average_change,max_change_date, max_change, min_change_date, min_change] )
-    
+#open the file using "write" mode. Specify the variable hold the contents
+f = open(output_path, 'w')
+f.write("Financial Analysis" +"\n")
+f.write("\n")
+f.write("----------------------------" + "\n")
+f.write("\n")
+f.write("Total Months: " + str(month_count)+ "\n")
+f.write("\n")
+f.write("Total: $" + str(total_Profit_Loss) + "\n")
+f.write("\n")
+f.write("Average Change: " + "$" + str(average_change)+ "\n")
+f.write("\n")
+f.write("Greatest Increase in Profits: " + max_change_date + " ($" + str(max_change) + ")\n")
+f.write("\n")
+f.write("Greatest Decrease in Profits: " + min_change_date + " ($" + str(min_change) + ")\n")
+f.close()
