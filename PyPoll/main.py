@@ -28,8 +28,10 @@ total_votes = 0          # this is used to count the votes cast
 max_votes = 0            # this is used to identify which candidate received the most votes   
 winner = ""              # this identifies the winning candidate
 
-candidate_dict={"candidate_name": "",
-                "votes":0 }          #this is a dictionary called "candidate_dict" and it will be used to hold the candidate names and a count of the votes they received
+candidate_dict={}          #this is a dictionary called "candidate_dict" and it will be used to hold the candidate names and a count of the votes they received
+candidate_name_list = []   #this is a list to hold the candidate names
+candidate_pct_list= []     #this is a list to hold the percentage of total votes received
+candidate_vote_list = []   #this is a list to holdthe votes received
 
 
 # Open the CSV using the UTF-8 encoding
@@ -52,12 +54,23 @@ with open(election_csv, encoding='UTF-8') as csvfile:
             #candidate_dict["votes"] = 1
         total_votes = total_votes + 1 
 
-# becuase I created a dictionary and initialzied it with a placeholder key and corresponding placeholder value, delete that key:value pair
+for i in candidate_dict:
+    candidate_votes= int(candidate_dict[i])
+    candidate_pct = str(round(candidate_votes/total_votes * 100, 3))+"%"
+    
+    #Now, append each of the three lists
+    candidate_name_list.append(i)
+    candidate_pct_list.append(candidate_pct)
+    candidate_vote_list.append("(" + str(candidate_votes)+")")
+    
+    if candidate_votes > max_votes:
+        max_votes = candidate_votes
+        winner = i
 
-del candidate_dict["candidate_name"]
-del candidate_dict["votes"]
+#Now, zip the three lists together
+zipped_lists = zip(candidate_name_list, candidate_pct_list, candidate_vote_list)
 
-# print the results to the terminal        
+# PRINT RESULTS TO THE TERMINAL        
 print("Election Results")
 print()
 print("----------------------------")
@@ -67,18 +80,8 @@ print()
 print("----------------------------")
 print()
 
-# Now, loop through the dictionary to get each candidate's name, their percentage of total votes cast, and the number of votes they received
-
-for i in candidate_dict:
-
-    candidate_votes= int(candidate_dict[i])
-    candidate_pct = round(candidate_votes/total_votes * 100, 3)
-
-    print(i + ": "+ str(candidate_pct)+ "% (" + str(candidate_votes)+")")
-
-    if candidate_votes > max_votes:
-        max_votes = candidate_votes
-        winner = i
+for item1, item2, item3 in zipped_lists:
+    print(item1 + ":", item2, item3)
     print()
 
 print("----------------------------")
@@ -87,7 +90,7 @@ print("Winner: " + winner)
 print()
 print("----------------------------")
 
-# print the results to a text file      
+# PRINT RESULTS TO A TEXT FILE      
 # specify the file to write to
 output_path = os.path.join("analysis","results.txt")
 
@@ -102,15 +105,10 @@ f.write("\n")
 f.write("-----------------------------\n")
 f.write("\n")
 
-for i in candidate_dict:
-    candidate_votes= int(candidate_dict[i])
-    candidate_pct = round(candidate_votes/total_votes * 100, 3)
-    f.write(i + ": "+ str(candidate_pct)+ "% (" + str(candidate_votes)+")" + "\n")
-    f.write("\n")
 
-    if candidate_votes > max_votes:
-        max_votes = candidate_votes
-        winner = i
+for item1, item2, item3 in zip(candidate_name_list,candidate_pct_list,candidate_vote_list):
+    concatenated_string = item1 + ": " + item2 + " " + item3
+    f.write(concatenated_string)
     f.write("\n")
 
 f.write("----------------------------\n")

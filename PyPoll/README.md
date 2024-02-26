@@ -10,7 +10,7 @@ The task is to create a Python script that analyzes the votes and calculates eac
 following values:
 
 1. The total number of votes cast
-2. A comlete list of candidates who received votes
+2. A complete list of candidates who received votes
 3. The percentage of votes each candidate won
 4. The total number of votes each candidate won
 5. The winner of the election based on popular vote
@@ -23,18 +23,19 @@ The salient details:
 3. Overall approach:
     3.1 import a couple of python modules to faciliate file paths and manipulating the data
     3.2 create a path to the dataset
-    3.3 create and initialize variables and a dictionary object
+    3.3 create and initialize variables, a dictionary object, and list objects
     3.4 open the dataset with csv.reader
     3.5 read the header row and save it as an object
     3.6 loop through the dataset, and with each iteration:
         3.6.1 determine if the candidate's name is in the dictionary and if so, increment that candidate's vote count.
               If the candidate's name isn't in the dictionary, add that name and set the vote count to 1.
     3.7 after looping through the data:
-        3.7.1 delete the place holder key:value in the dictionary
-        3.7.2 print the total votes
-        3.7.3 calculate each candidate's percentage of the overall votes cast
-        3.7.4 print the results to the terminal
-        3.7.5 print the results to a .txt file
+        3.7.1 calculate each candidate's percentage of the overall votes cast
+        3.7.2 append the three lists
+        3.7.3 determine the winner 
+        3.7.4 zip the three lists together (this makes for more efficient code)
+        3.7.5 print the results to the terminal
+        3.7.6 print the results to a .txt file
 
  
 
